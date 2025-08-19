@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <h2>Masuk ke Akun</h2>
+        <form id="loginForm">
+            <input type="text" id="loginUser" placeholder="Username" required>
+            <div class="password-container">
+                <input type="password" id="loginPass" placeholder="Password" required>
+                <span class="toggle-password" onclick="togglePassword('loginPass', this)">👁️</span>
+            </div>
+            <button type="submit">Login</button>
+            <p>Belum punya akun? <a href="signup.html">Daftar di sini</a></p>
+        </form>
+    </div>
+
+    <script>
+        function togglePassword(inputId, icon){
+            let input = document.getElementById(inputId);
+            if(input.type === "password"){
+                input.type = "text";
+                icon.textContent = "🙈";
+            } else {
+                input.type = "password";
+                icon.textContent = "👁️";
+            }
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", function(e){
+            e.preventDefault();
+
+            let savedUser = localStorage.getItem("savedUsername");
+            let savedPass = localStorage.getItem("savedPassword");
+
+            let inputUser = document.getElementById("loginUser").value.trim();
+            let inputPass = document.getElementById("loginPass").value.trim();
+
+            if(!savedUser || !savedPass){
+                alert("Belum ada akun terdaftar. Silakan daftar terlebih dahulu.");
+                window.location.href = "signup.html";
+            }
+            else if(inputUser === savedUser && inputPass === savedPass){
+                alert("Login berhasil!");
+                window.location.href = "../Portofolio_Web_Perusahaan/index.html";
+            } else {
+                alert("Username atau password salah!");
+            }
+        });
+    </script>
+</body>
+</html>
